@@ -1,7 +1,7 @@
 defmodule Events do
   require Logger 
   @moduledoc """
-  Handles retrieval of github commits
+  Handles retrieval of github events
   """
 
   @user_agent [ {"User-agent", "Elixir greg"} ]
@@ -9,9 +9,6 @@ defmodule Events do
 
   @doc """
   Obtain the events for a user
-
-  TODO make an example here plz
-
   """
   def events(user) do
     Logger.info "Fetching user #{user}'s events"
@@ -23,7 +20,7 @@ defmodule Events do
   end
 
   defp handle_response({:ok, %{status_code: 200, body: body}}) do
-    Logger.info "Successful response"
+    Logger.debug "Successful response"
     Logger.debug fn -> inspect(body) end 
     { :ok, Poison.Parser.parse!(body) }
   end
@@ -46,7 +43,7 @@ defmodule Events do
 
   defp decode_response({:error, error}) do
     {_, message} = List.keyfind(error, "message", 0)
-    IO.puts "Error fetching from Github #{message}"
+    IO.puts "Error fetching from Github #{message}"  # TODO logger?
     System.halt(2)
   end
 end

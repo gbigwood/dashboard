@@ -1,34 +1,16 @@
 defmodule Commits do
   require Logger 
-  import Events, only: [events: 1]
   @moduledoc """
-  Handles retrieval of github commits
+  Handles retrieval of github commits from events
   """
 
   @doc """
-  Obtain the commits for a user
-
-  TODO make an example here plz
-
+  Obtain the commits for a user from a list of events
   """
   def commits(events) do
     Logger.debug "parsing commits"
     events
     |> commits_only
-  end
-
-  defp number_of_commits(list_of_events) do
-    Enum.map(list_of_events, fn(x) -> commit_count(x) end)
-  end
-
-  defp commit_count(%{"payload"=> %{"commits" => commits}}) do
-    Logger.debug "event contains commits"
-    length(commits)
-  end
-
-  defp commit_count(event) do
-    Logger.debug "event has no commits"
-    0
   end
 
   defp contains_commits(%{"payload"=> %{"commits" => commits}}) do
@@ -46,9 +28,15 @@ defmodule Commits do
     get_in(commits, [all, "message"])
   end
 
+  defp repo_info(%{"repo"=> %{"name" => name}}) do
+    name
+  end
+
   defp commits_only(list_of_events) do
     Enum.filter_map(list_of_events, 
                     fn (e) -> contains_commits(e) end, 
-                    fn (event_with_commit) -> commit_info(event_with_commit) end)
+                    fn (event_with_commit) -> 
+                      %{"commit_messages" => commit_info(event_with_commit), 
+                        "repo" => get_in(event_with_commit, ["repo", "name"])} end)
   end
 end
