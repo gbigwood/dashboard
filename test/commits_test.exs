@@ -3,10 +3,7 @@ defmodule CommitsTest do
   doctest Commits
   import Commits, only: [commits: 1]
 
-  test "We obtain events" do
+  test "We obtain commits" do
     assert 'some commits for gbigwood' = commits('gbigwood')
   end
-
-  # we can find the commits from the site
-  # we can find the commits when pushed from locally
 end
