@@ -7,6 +7,8 @@ defmodule Dashboard.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     name: "Dashboard",
+     source_url: "https://github.com/gbigwood/dashboard",
      deps: deps()]
   end
 
@@ -15,7 +17,7 @@ defmodule Dashboard.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger, :httpoison]]
   end
 
   # Dependencies can be Hex packages:
@@ -28,6 +30,11 @@ defmodule Dashboard.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [
+      {:httpoison, "~> 0.9",},
+      {:poison, "~> 2.2"},
+      {:ex_doc, "~> 0.12"}, 
+      {:earmark, "~> 1.0", override: true}
+    ]
   end
 end

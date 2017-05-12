@@ -1,6 +1,6 @@
 # Dashboard
 
-**TODO: Add description**
+A dashboard of useful things for work like Github issues, twitter feed.
 
 ## Installation
 
