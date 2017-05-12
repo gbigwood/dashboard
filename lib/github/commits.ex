@@ -11,9 +11,9 @@ defmodule Commits do
   TODO make an example here plz
 
   """
-  def commits(user) do
-    Logger.info "Fetching user #{user}'s commits"
-    events(user)
+  def commits(events) do
+    Logger.debug "parsing commits"
+    events
     |> commits_only
   end
 
@@ -22,22 +22,22 @@ defmodule Commits do
   end
 
   defp commit_count(%{"payload"=> %{"commits" => commits}}) do
-    Logger.info "event contains commits"
+    Logger.debug "event contains commits"
     length(commits)
   end
 
   defp commit_count(event) do
-    Logger.info "event has no commits"
+    Logger.debug "event has no commits"
     0
   end
 
   defp contains_commits(%{"payload"=> %{"commits" => commits}}) do
-    Logger.info "event contains commits"
+    Logger.debug "event contains commits"
     true
   end
 
   defp contains_commits(event) do
-    Logger.info "event has no commits"
+    Logger.debug "event has no commits"
     false
   end
 
@@ -51,5 +51,4 @@ defmodule Commits do
                     fn (e) -> contains_commits(e) end, 
                     fn (event_with_commit) -> commit_info(event_with_commit) end)
   end
-
 end
