@@ -37,9 +37,9 @@ defmodule CommitsTest do
           "url" => "https://api.github.com/repos/gbigwood/dashboard"},
         "type" => "PushEvent"}]
     expected_commits = [%{
-      "commit_messages" => ["feature(commits): working basic commit"],
-      "repo" => "gbigwood/dashboard"}]
-    assert expected_commits = sample_events |> commits()
+      :commit_messages => ["feature(commits): working basic commit"],
+      :repo_name => "gbigwood/dashboard"}]
+    assert ^expected_commits = sample_events |> commits()
   end
 
 
@@ -68,9 +68,9 @@ defmodule CommitsTest do
         "type" => "PushEvent"}]
 
     expected_commits = [%{
-      "commit_messages" => ["feature(issues): add github issues", 
+      :commit_messages => ["feature(issues): add github issues", 
                             "Merge branch 'master' of https://github.com/gbigwood/elixir-issues"],
-      "repo" => "gbigwood/elixir-issues"}] 
-    assert expected_commits = sample_events |> commits()
+      :repo_name => "gbigwood/elixir-issues"}] 
+    assert ^expected_commits = sample_events |> commits()
   end
 end

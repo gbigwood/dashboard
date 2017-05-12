@@ -36,7 +36,7 @@ defmodule Commits do
     Enum.filter_map(list_of_events, 
                     fn (e) -> contains_commits(e) end, 
                     fn (event_with_commit) -> 
-                      %{"commit_messages" => commit_info(event_with_commit), 
-                        "repo" => get_in(event_with_commit, ["repo", "name"])} end)
+                      %{:commit_messages => commit_info(event_with_commit), 
+                        :repo_name => get_in(event_with_commit, ["repo", "name"])} end)
   end
 end
