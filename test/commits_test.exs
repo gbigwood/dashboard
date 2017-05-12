@@ -6,4 +6,7 @@ defmodule CommitsTest do
   test "We obtain events" do
     assert 'some commits for gbigwood' = commits('gbigwood')
   end
+
+  # we can find the commits from the site
+  # we can find the commits when pushed from locally
 end

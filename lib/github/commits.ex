@@ -20,7 +20,7 @@ defmodule Commits do
     |> handle_response
     |> decode_response
     |> sort_into_ascending_order
-    |> find_commits
+    |> number_of_commits
   end
 
   defp handle_response({:ok, %{status_code: 200, body: body}}) do
@@ -43,8 +43,18 @@ defmodule Commits do
     "#{@github_url}/users/#{user}/events"
   end
 
-  defp find_commits(body) do
-    body
+  defp number_of_commits(list_of_events) do
+    Enum.map(list_of_events, fn(x) -> find_commits(x) end)
+  end
+
+  defp find_commits(%{"payload"=> %{"commits" => commits}}) do
+    Logger.info "event contains commits"
+    length(commits)
+  end
+
+  defp find_commits(event) do
+    Logger.info "event has no commits"
+    0
   end
 
   defp decode_response({:ok, body}), do: body
@@ -54,5 +64,4 @@ defmodule Commits do
     IO.puts "Error fetching from Github #{message}"
     System.halt(2)
   end
-
 end
