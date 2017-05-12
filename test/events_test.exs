@@ -6,4 +6,6 @@ defmodule EventsTest do
   test "We obtain events" do
     assert length(events('gbigwood'))
   end
+
+  # TODO some spec stuff for the events
 end

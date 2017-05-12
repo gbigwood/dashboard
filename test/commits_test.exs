@@ -1,5 +1,5 @@
 defmodule CommitsTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: True
   doctest Commits
   import Commits, only: [commits: 1]
   import Events, only: [events: 1]
