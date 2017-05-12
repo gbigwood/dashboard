@@ -43,7 +43,7 @@ defmodule Dashboard do
     user
   end
 
-  defp printout(%{:commit_messages=>commits, :repo_name=>name}) do
-    Enum.each(commits, fn (x) -> IO.puts "#{name}\t#{x}\n" end)
+  defp printout(%{:commit_messages=>messages, :repo_name=>name}) do
+    Enum.each(messages, fn (msg) -> IO.puts "#{name}\t#{msg}" end)
   end
 end

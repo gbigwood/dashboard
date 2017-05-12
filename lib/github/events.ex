@@ -30,8 +30,8 @@ defmodule Events do
     { :error, Poison.Parser.parse!(body) }
   end
 
-  def sort_into_ascending_order(list_of_issues) do
-    Enum.sort list_of_issues, 
+  def sort_into_ascending_order(list_of_events) do
+    Enum.sort list_of_events, 
       fn i1,i2 -> Map.get(i1, "created_at") <= Map.get(i2, "created_at") end
   end
 
